@@ -5,7 +5,7 @@ Ansible Role: Go language SDK
 [![Ansible Galaxy](https://img.shields.io/badge/ansible--galaxy-hybridadmin.golang-blue.svg)](https://galaxy.ansible.com/hybridadmin/golang)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/hybridadmin/ansible-role-golang/master/LICENSE)
 
-Role to download and install the [Go language SDK](https://golang.org/).
+Role to download and install the [`Go language SDK`](https://golang.org/).
 
 Requirements
 ------------
@@ -80,22 +80,17 @@ This role exports the following Ansible facts for use by other roles:
 
     * e.g. `/opt/golang/1.7.3`
 
-More Roles From GantSign
-------------------------
-
-You can find more roles from GantSign on
-[Ansible Galaxy](https://galaxy.ansible.com/hybridadmin).
 
 Development & Testing
 ---------------------
 
 To develop or test you'll need to have installed the following:
 
-* Linux (e.g. [Ubuntu](http://www.ubuntu.com/))
-* [Docker](https://www.docker.com/)
-* [Python](https://www.python.org/) (including python-pip)
-* [Ansible](https://www.ansible.com/)
-* [Molecule](http://molecule.readthedocs.io/)
+* Linux (e.g. [`Ubuntu`](http://www.ubuntu.com/))
+* [`Docker`](https://www.docker.com/)
+* [`Python3`](https://www.python.org/) (including python3-pip)
+* [`Ansible`](https://www.ansible.com/)
+* [`Molecule`](http://molecule.readthedocs.io/)
 
 
 Note: some of the dependencies need `sudo` permission to install.
