@@ -1,97 +1,45 @@
 ---
+os: linux
 language: python
-python: '2.7'
+python: '3.8'
 
 env:
   global:
-    - MOLECULEW_USE_SYSTEM=true
+  jobs:
+    - MOLECULE_DISTRO: centos
+      MOLECULE_DISTRO_TAG: 8
+    - MOLECULE_DISTRO: centos
+      MOLECULE_DISTRO_TAG: 7
+    - MOLECULE_DISTRO: ubuntu
+      MOLECULE_DISTRO_TAG: focal
+    - MOLECULE_DISTRO: ubuntu
+      MOLECULE_DISTRO_TAG: bionic
+    - MOLECULE_DISTRO: ubuntu
+      MOLECULE_DISTRO_TAG: xenial
+    - MOLECULE_DISTRO: debian
+      MOLECULE_DISTRO_TAG: 10
+    - MOLECULE_DISTRO: debian
+      MOLECULE_DISTRO_TAG: 9
+    - MOLECULE_DISTRO: fedora
+      MOLECULE_DISTRO_TAG: 33
+    - MOLECULE_DISTRO: fedora
+      MOLECULE_DISTRO_TAG: 32
 
-# Spin off separate builds for each of the following versions
-# of Ansible and Linux.
-jobs:
-  include:
-    - env:
-        - MOLECULEW_ANSIBLE=2.7.15
-        - MOLECULE_SCENARIO=centos-min
-    - env:
-        - MOLECULEW_ANSIBLE=2.7.15
-        - MOLECULE_SCENARIO=centos-max
-    - env:
-        - MOLECULEW_ANSIBLE=2.7.15
-        - MOLECULE_SCENARIO=debian-max
-    - env:
-        - MOLECULEW_ANSIBLE=2.7.15
-        - MOLECULE_SCENARIO=debian-min
-    - env:
-        - MOLECULEW_ANSIBLE=2.7.15
-        - MOLECULE_SCENARIO=default
-    - env:
-        - MOLECULEW_ANSIBLE=2.7.15
-        - MOLECULE_SCENARIO=ubuntu-min
-    - env:
-        - MOLECULEW_ANSIBLE=2.7.15
-        - MOLECULE_SCENARIO=fedora
-    - env:
-        - MOLECULEW_ANSIBLE=2.7.15
-        - MOLECULE_SCENARIO=opensuse
-    - env:
-        - MOLECULEW_ANSIBLE=2.9.1
-        - MOLECULE_SCENARIO=centos-min
-    - env:
-        - MOLECULEW_ANSIBLE=2.9.1
-        - MOLECULE_SCENARIO=centos-max
-    - env:
-        - MOLECULEW_ANSIBLE=2.9.1
-        - MOLECULE_SCENARIO=debian-max
-    - env:
-        - MOLECULEW_ANSIBLE=2.9.1
-        - MOLECULE_SCENARIO=debian-min
-    - env:
-        - MOLECULEW_ANSIBLE=2.9.1
-        - MOLECULE_SCENARIO=default
-    - env:
-        - MOLECULEW_ANSIBLE=2.9.1
-        - MOLECULE_SCENARIO=ubuntu-min
-    - env:
-        - MOLECULEW_ANSIBLE=2.9.1
-        - MOLECULE_SCENARIO=fedora
-    - env:
-        - MOLECULEW_ANSIBLE=2.9.1
-        - MOLECULE_SCENARIO=opensuse
-    - env:
-        - MOLECULEW_ANSIBLE=2.9.1
-        - MOLECULE_SCENARIO=ubuntu-max-go-eol
-    - env:
-        - MOLECULEW_ANSIBLE=2.9.1
-        - MOLECULE_SCENARIO=default
-      arch:
-        - arm64
-    - env:
-        - MOLECULEW_ANSIBLE=2.9.1
-        - MOLECULE_SCENARIO=ubuntu-max-go-eol
-      arch:
-        - arm64
-
-# Require Ubuntu 16.04
-dist: xenial
-
-# Require Docker
+dist: focal
 services:
   - docker
 
+before_install:
+  - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+  - sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+  - sudo apt-get update
+  - sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
 install:
-  # Install dependencies
-  - ./moleculew wrapper-install
-
-  # Display versions
-  - ./moleculew wrapper-versions
-
+  - pip install molecule-docker yamllint ansible-lint
+before_script:
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 script:
-  - ./moleculew test --scenario-name=$MOLECULE_SCENARIO
-
-cache:
-  directories:
-    - $HOME/.moleculew
+  - molecule test
 
 branches:
   only:
