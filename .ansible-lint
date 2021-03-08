@@ -1,0 +1,2 @@
+warn_list:
+  - internal-error  # Unexpected internal error
