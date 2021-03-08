@@ -1,7 +1,7 @@
 Ansible Role: Go language SDK
 =============================
 
-[![Build Status](https://travis-ci.org/hybridadmin/ansible-role-golang.svg?branch=master)](https://travis-ci.org/hybridadmin/ansible-role-golang)
+[![CI](https://github.com/hybridadmin/ansible-role-golang/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/hybridadmin/ansible-role-golang/actions/workflows/build.yml)
 [![Ansible Galaxy](https://img.shields.io/badge/ansible--galaxy-hybridadmin.golang-blue.svg)](https://galaxy.ansible.com/hybridadmin/golang)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/hybridadmin/ansible-role-golang/master/LICENSE)
 
