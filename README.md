@@ -57,6 +57,9 @@ the variable below:
 golang_redis_sha256sum: '6e3e9c949ab4695a204f74038717aa7b2689b1be94875899ac1b3fe42800ff82'
 ```
 
+> The correct hash can be found at [`Downloads`](https://golang.org/dl/) and should be for Go SDK version specified in the `golang_version` variable
+
+
 Example Playbook
 ----------------
 
