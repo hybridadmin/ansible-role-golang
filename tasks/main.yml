@@ -1,21 +1,16 @@
 ---
-#- name: load source vars
-#  with_first_found:
-#    - '../vars/main-{{ ansible_architecture|lower }}.yml'
-#    - ../vars/main.yml
-#  include_vars: '{{ item }}'
-
-#- name: load version vars
-#  with_first_found:
-#    - '../vars/versions/{{ golang_version }}-{{ ansible_architecture|lower }}.yml'
-#    - '../vars/versions/{{ golang_version }}.yml'
-#    - ../vars/versions/default.yml
-#  include_vars: '{{ item }}'
 
 - name: assert version vars
   assert:
     that:
       - "golang_redis_sha256sum not in (None, '')"
+
+- name: "install required packages"
+  action: >
+    {{ ansible_pkg_mgr }} name={{ required_packages }} state=present update_cache=yes
+  register: required_packages_installed
+  until: required_packages_installed is succeeded
+  retries: 3
 
 - name: create download directory
   file:
@@ -42,14 +37,14 @@
     mode: 'u=rwx,go=rx'
     dest: '{{ golang_install_dir }}'
 
-- name: install unarchive dependencies (zypper)
-  become: yes
-  zypper:
-    name:
-      - gzip
-      - tar
-    state: present
-  when: ansible_pkg_mgr == 'zypper'
+#- name: install unarchive dependencies (zypper)
+#  become: yes
+#  zypper:
+#    name:
+#      - gzip
+#      - tar
+#    state: present
+#  when: ansible_pkg_mgr == 'zypper'
 
 - name: install Go language SDK
   become: yes

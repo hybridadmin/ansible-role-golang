@@ -1,3 +1,10 @@
 ---
 # Filename of Go language SDK redistributable package
 golang_redis_filename: 'go{{ golang_version }}.linux-amd64.tar.gz'
+
+_required_packages:
+  default:
+    - gzip
+    - tar
+
+required_packages: "{{ _required_packages['default'] }}"
