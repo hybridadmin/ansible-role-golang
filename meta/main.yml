@@ -1,9 +1,9 @@
 ---
 galaxy_info:
-  author: Hybridadmin
+  author: hybridadmin
   role_name: golang
   description: Role for installing the Go language SDK.
-  company: GantSign Ltd.
+  company: N/A.
   license: MIT
   min_ansible_version: 2.9
   platforms:
@@ -27,7 +27,9 @@ galaxy_info:
     - name: opensuse
       versions:
         - 15.1
+
   galaxy_tags:
     - golang
     - development
+
 dependencies: []
