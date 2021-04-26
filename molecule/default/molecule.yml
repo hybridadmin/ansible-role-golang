@@ -1,4 +1,6 @@
---- dependency:
+---
+
+dependency:
   name: galaxy
 lint: |
   set -e
